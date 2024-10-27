@@ -1,0 +1,9 @@
+app:
+  name: MailForwarder
+  backend:
+    mailForwarder:
+      domain: example.com
+      prefix: emails/
+      forwardMapping:
+        leon@example.com:
+        - leon.example@gmail.com

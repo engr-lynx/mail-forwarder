@@ -1,0 +1,17 @@
+# ts
+*.js
+*.d.ts
+
+# yarn
+node_modules
+yarn-error.log
+
+# CDK assets
+.cdk.staging
+cdk.out
+cdk.context.yaml
+cdk.context.json
+
+# System Files
+.DS_Store
+Thumbs.db

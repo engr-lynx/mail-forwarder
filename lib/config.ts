@@ -3,7 +3,6 @@ export interface Mapping {
 }
 
 export interface MailForwarderConfig {
-  readonly email: string
   readonly domain: string
   readonly forwardMapping: Mapping
   readonly priority?: number

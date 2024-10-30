@@ -12,6 +12,9 @@ cdk.out
 cdk.context.yaml
 cdk.context.json
 
-# System Files
+# system files
 .DS_Store
 Thumbs.db
+
+# IDE files
+.vscode/*

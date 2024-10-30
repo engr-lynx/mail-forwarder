@@ -85,10 +85,6 @@ export class MailForwarder extends Construct {
     })
     forwardMailFunction.addToRolePolicy(policyStatement)
 
-    // ToDo: remove EmailIdentity once out of sandbox
-    new SES.EmailIdentity(this, 'EmailIdentity', {
-      identity: SES.Identity.email(props.email),
-    })
     new SES.EmailIdentity(this, 'DomainIdentity', {
       identity: SES.Identity.publicHostedZone(zone),
     })

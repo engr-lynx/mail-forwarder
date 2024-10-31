@@ -64,11 +64,17 @@ export class MailForwarder extends Construct {
       KEY_PREFIX: objectKeyPrefix,
       FORWARD_MAPPING: JSON.stringify(props.forwardMapping),
     }
+    const logGroup = new Logs.LogGroup(this, 'ForwardMailLogGroup', {
+      removalPolicy: RemovalPolicy.DESTROY,
+      retention: Logs.RetentionDays.ONE_DAY,
+    })
     const forwardMailFunction: Nodejs.NodejsFunction = new Nodejs.NodejsFunction(this, 'ForwardMailFunction', {
       entry,
       handler: 'handler',
       runtime: Lambda.Runtime.NODEJS_20_X,
-      logRetention: Logs.RetentionDays.ONE_DAY,
+      architecture: Lambda.Architecture.ARM_64,
+      memorySize: 512,
+      logGroup,
       timeout: Duration.seconds(10),
       bundling,
       environment,
@@ -132,7 +138,8 @@ export class MailForwarder extends Construct {
       code,
       handler: 'index.handler',
       runtime: Lambda.Runtime.PYTHON_3_12,
-      logRetention: Logs.RetentionDays.ONE_DAY,
+      architecture: Lambda.Architecture.ARM_64,
+      memorySize: 192,
       timeout: Duration.minutes(5),
     })
     bucket.grantRead(onEventHandler)

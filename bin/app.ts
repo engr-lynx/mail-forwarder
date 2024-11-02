@@ -18,7 +18,8 @@ const env = {
   region: process.env.CDK_DEFAULT_REGION,
   account: process.env.CDK_DEFAULT_ACCOUNT,
 }
-new BackEndStack(app, appConfig.name, {
+const name = appConfig.name + 'MailForwarder'
+new BackEndStack(app, name, {
   ...appConfig.backend,
   env,
 })

@@ -112,7 +112,7 @@ export class MailForwarder extends Construct {
         lambdaAction,
       ],
     })
-    const physicalId: string = `SetActiveReceiptRuleSet-${Stack.of(this).region}`
+    const physicalId: string = `ActiveReceiptRuleSet-${Stack.of(this).region}`
     const physicalResourceId: Resources.PhysicalResourceId = Resources.PhysicalResourceId.of(physicalId)
     const onUpdate: Resources.AwsSdkCall = {
       service: 'ses',
@@ -122,11 +122,19 @@ export class MailForwarder extends Construct {
         RuleSetName: receiptRuleSet.receiptRuleSetName,
       },
     }
+    const onDelete: Resources.AwsSdkCall = {
+      service: 'ses',
+      action: 'SetActiveReceiptRuleSet',
+      parameters: {
+        RuleSetName: null,
+      },
+    }
     const policy: Resources.AwsCustomResourcePolicy = Resources.AwsCustomResourcePolicy.fromSdkCalls({
       resources: Resources.AwsCustomResourcePolicy.ANY_RESOURCE,
     })
     const activateReceiptRuleSet: Resources.AwsCustomResource = new Resources.AwsCustomResource(this, 'ActivateReceiptRuleSet', {
       onUpdate,
+      onDelete,
       policy,
       logRetention: Logs.RetentionDays.ONE_DAY,
       timeout: Duration.minutes(5),

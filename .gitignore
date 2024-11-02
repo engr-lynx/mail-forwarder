@@ -9,8 +9,8 @@ yarn-error.log
 # CDK assets
 .cdk.staging
 cdk.out
-cdk.context.yaml
-cdk.context.json
+cdk.context.*
+!cdk.context.sample.yaml
 
 # system files
 .DS_Store
